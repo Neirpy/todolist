@@ -8,7 +8,7 @@ import {createRoot} from "react-dom/client";
 function App() {
   const [tasks, setTasks] = useState(tasksCollection);
 
-  const addNewTask = (content : string)=>{
+  const addNewTask = (content : string):void=>{
     const newTask : Task = {
       id: tasks.length + 1,
       content: content,
@@ -18,7 +18,7 @@ function App() {
     setTasks([...tasks, newTask]);
   }
 
-  const whenAddButtonIsClicked = () => {
+  const whenAddButtonIsClicked = () :void => {
     const content = prompt("Entrez le contenu de la tâche");
     if(content){
         addNewTask(content);
@@ -27,12 +27,12 @@ function App() {
         alert("Veuillez saisir le contenu de la tâche");
     }
   }
-  const validateTask = (task : Task) => {
+  const validateTask = (task : Task) :void => {
       task.status = "done";
       task.completedAt = new Date();
       setTasks([...tasks]);
   }
-  const modifyTaskModal = (task : Task) => {
+  const modifyTaskModal = (task : Task) :void => {
       // Old version
       // const newStatus = prompt("Choisissez le nouveau statut de la tâche (doing/todo):", task.status);
       // if (newStatus === "doing" || newStatus === "todo") {
@@ -41,14 +41,13 @@ function App() {
       //     setTasks([...tasks]);
       // }
       // New version with the form in Modal.tsx
-      //Create an instance of modal.tsx
-    const modalContainer = document.createElement("div");
-    modalContainer.classList.add('modal-container')
-    document.body.appendChild(modalContainer);
-    createRoot(modalContainer).render(<Modal task={task} onSave={updateTask} />);
+      const modalContainer = document.createElement("div");
+      modalContainer.classList.add('modal-container')
+      document.body.appendChild(modalContainer);
+      createRoot(modalContainer).render(<Modal task={task} onSave={updateTask} />);
   }
 
-  const updateTask = (updatedTask: Task) => {
+  const updateTask = (updatedTask: Task) :void => {
     setTasks(tasks.map(task => task.id === updatedTask.id ? updatedTask : task));
   }
 

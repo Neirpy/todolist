@@ -11,23 +11,22 @@ export const Modal = ({task, onSave}: {task: Task, onSave: (task: Task) => void}
         setContent(e.target.value);
     }
 
-    const closeModal = () => {
+    const closeModal = () :void => {
         const modal = document.querySelector<HTMLDivElement>(".modal-container");
         if (modal) modal.remove()
     }
 
-    const handleStatusChange = (e: React.ChangeEvent<HTMLSelectElement>)  => {
+    const handleStatusChange = (e: React.ChangeEvent<HTMLSelectElement>) :void  => {
         setStatus(e.target.value as "todo" | "doing" | "done");
     }
 
-    const modifytask = () => {
+    const modifytask  = () :void => {
         task.content = content;
         task.status = status;
         if (status !== "done") task.completedAt = undefined;
         const modal = document.querySelector<HTMLDivElement>(".modal-container");
         onSave(task);
         if (modal) modal.remove()
-        return task;
     }
 
 
